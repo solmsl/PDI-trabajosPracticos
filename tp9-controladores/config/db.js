@@ -26,6 +26,19 @@ db.getConnection((err, connection) => {
       PRIMARY KEY (dni)
     )`
   )
+
+  connection.query(
+    `CREATE TABLE IF NOT EXISTS personas (
+      dni INT NOT NULL AUTO_INCREMENT,
+      nombre VARCHAR(100) NOT NULL,
+      apellido VARCHAR(100) NOT NULL,
+      telefono INT NOT NULL,
+      email VARCHAR(100) NOT NULL,
+      direccion VARCHAR(100) NOT NULL,
+      genero VARCHAR(50) NOT NULL,
+      PRIMARY KEY (dni)
+    )`
+  )
 })
 
 module.exports = promiseQuery
