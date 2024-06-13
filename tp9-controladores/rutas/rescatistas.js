@@ -4,7 +4,7 @@ const promiseQuery = require('../config/db')
 
 // /rescatistas
 
-// localhost:3000/rescatista/
+// localhost:3000/rescatistas/
 router.get('/', async (req, res) => {
   try {
     const query = "SELECT * FROM rescatistas";
