@@ -7,9 +7,6 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// Conectamos a la DB
-const mysqlConnection = require('./config/db');
-
 //Conectamos a las rutas
 app.use('/rescatistas', require('./rutas/rescatistas'));
 app.use('/personas', require('./rutas/personas'));

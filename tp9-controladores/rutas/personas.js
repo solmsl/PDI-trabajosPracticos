@@ -7,6 +7,7 @@ const persController = require('../controladores/personasControlador')
 //personas
 //rutas en el controlador:
 router.get('/', persController.obtenerTodo);
-router.get('/', persController.crear);
+router.post('/', persController.crear);
+
 
 module.exports = router
