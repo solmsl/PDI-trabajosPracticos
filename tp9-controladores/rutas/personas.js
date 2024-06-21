@@ -8,6 +8,8 @@ const persController = require('../controladores/personasControlador')
 //rutas en el controlador:
 router.get('/', persController.obtenerTodo);
 router.post('/', persController.crear);
-
+router.post('/:dni', persController.obtenerconId);
+router.post('/:dni', persController.actualizar);
+router.post('/:dni', persController.borrar);
 
 module.exports = router

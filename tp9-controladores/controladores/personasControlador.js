@@ -53,9 +53,9 @@ const borrar = async (req,res) => {
     try {
         const { dni } = req.params
 
-        const query = "DELETE FROM `rescatistas` WHERE dni = ?"
+        const query = "DELETE FROM `personas` WHERE dni = ?"
 
-        const producto =  await promiseQuery(query, [dni])
+        await promiseQuery(query, [dni])
         res.json({message: "Persona Eliminada"})
     } catch (err) {
         throw err
