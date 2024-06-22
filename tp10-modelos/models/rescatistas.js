@@ -16,7 +16,7 @@ const Rescatista = sequelize.define('Rescatista', {
         allowNull: false,
     },
     telefono: {
-        type: Sequelize.INTEGER.length(8),
+        type: Sequelize.INTEGER.length(8)
     },
     email: {
         type: Sequelize.STRING,
@@ -38,6 +38,5 @@ const Rescatista = sequelize.define('Rescatista', {
 })
 
 Rescatista.sync();
-// Producto.sync({alter: true}) | Producto.sync({force: true})
 
 module.exports = Rescatista;

@@ -1,9 +1,7 @@
-const promiseQuery = require('../config/db')
+const promiseQuery = require('../config/db');
 
-// Importamos modelo de Producto
-const Rescatista = require('../models/rescatistas')
-
-// Controlador de productos
+// Importamos modelo de Rescatistas
+const Rescatista = require('../models/rescatistas');
 
 const obtenerTodos = async (req, res) => {
   // Obtiene todos los usuarios de la base de datos
@@ -26,63 +24,78 @@ const obtener = async (req, res) => {
   }
 }
 
-// const crear = async (req, res) => {
-//   try {
-//     const { nombre, precio, stock } = req.body
+const crear = async (req, res) => {
+  try {
+    const {dni, nombre, apellido, telefono, email, direccion, genero } = req.body
 
-//     // Validaciones
-//     if (!nombre || nombre.length < 3) {
-//       return res.status(401).json({error: "Nombre inválido"})
-//     }
-//     if (!precio || isNaN(precio)) {
-//       return res.status(401).json({error: "Precio inválido"})
-//     }
-//     if (isNaN(stock)) {
-//       return res.status(401).json({error: "Stock inválido"})
-//     }
+    // Validaciones
+    if (!dni || dni.length < 8) {
+      return res.status(401).json({error: "DNI inválido"})
+    }
+    if (!nombre || nombre.length < 3) {
+      return res.status(401).json({error: "Nombre inválido"})
+    }
+    if (!apellido || apellido.length < 3) {
+      return res.status(401).json({error: "Apellido inválido"})
+    }
+    if (isNaN(telefono)) {
+      return res.status(401).json({error: "Número de Telefono inválido"})
+    }
 
-//     const productoNuevo = await Producto.create({ 
-//       nombre: nombre, precio: precio, stock: stock 
-//     });
-//     productoNuevo.save();
+    const rescaNuevo = await Rescatista.create({ 
+      dni, nombre, apellido, telefono, email, direccion, genero
+    });
+    rescaNuevo.save();
 
-//     return res.status(200).json({
-//       message: "Producto creado!",
-//       data: productoNuevo
-//     })
+    return res.status(200).json({
+      message: "Rescatista creado!",
+      data: rescaNuevo
+    })
 
-//   } catch (error) {
-//     return res.status(500).json({error: "Internal Server Error"})
-//   }
-// }
+  } catch (error) {
+    return res.status(500).json({error: "Internal Server Error"})
+  }
+}
 
-// const actualizar = async (req, res) => {
-//   try {
-//     const {nombre, precio, stock} = req.body
-//     const query = "UPDATE productos SET nombre = ?, precio = ?, stock = ? WHERE id = ?"
+const actualizar = async (req, res) => {
+  try {
+    const {dni, nombre, apellido, telefono, email, direccion, genero} = req.body
+    const pasarDni = req.params.id;
+
+    if(dni !== pasarDni){
+      return res.status(400).json({
+        message: "El dni no coincide con el registro"
+      });
+    }
     
-//     await promiseQuery(query, [nombre, precio, stock, req.params.id])
-//     res.json({message: "Producto actualizado exitosamente"})
-//   } catch (error) {
-//     throw error
-//   }
-// }
+    const actResc = await Rescatista.update({dni, nombre, apellido, telefono, email, direccion, genero})
+    
+    return res.status(200).json({
+      message: "Rescatista actualizado!",
+      data: actResc
+    })
+  } catch (error) {
+    return res.status(500).json({error: "Internal Server Error"})
+  }
+};
 
-// const borrar = async (req, res) => {
-//   try {
-//     const query = "DELETE FROM productos WHERE id = ?"
-
-//     await promiseQuery(query, [req.params.id])
-//     res.json({message: "Producto borrado"})
-//   } catch (error) {
-//     throw error
-//   }
-// }
+const borrar = async (req, res) => {
+  try {
+    const { dni } = req.params
+    const borrarResc = await Rescatista.findOneAndDelete({dni});
+    return res.status(200).json({
+      message: "Rescatista Borrado con exito!",
+      data: borrarResc
+    })
+  } catch (error) {
+    return res.status(500).json({error: "Internal Server Error"})
+  }
+}
 
 module.exports = {
   obtenerTodos,
-  obtener
-//   crear,
-//   actualizar,
-//   borrar
+  obtener,
+  crear,
+  actualizar,
+  borrar
 }
