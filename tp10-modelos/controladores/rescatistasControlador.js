@@ -1,7 +1,7 @@
-const promiseQuery = require('../config/db');
+// const promiseQuery = require('../config/db');
 
 // Importamos modelo de Rescatistas
-const Rescatista = require('../models/rescatistas');
+const Rescatista = require('../models/modelRescatistas');
 
 const obtenerTodos = async (req, res) => {
   // Obtiene todos los usuarios de la base de datos
