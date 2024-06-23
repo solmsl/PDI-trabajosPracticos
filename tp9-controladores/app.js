@@ -10,6 +10,7 @@ app.use(bodyParser.json());
 //Conectamos a las rutas
 app.use('/rescatistas', require('./rutas/rescatistas'));
 app.use('/personas', require('./rutas/personas'));
+app.use('/mascotas', require('./rutas/mascotas'))
 
 app.get('/', (req, res) => {
   res.send('Bienvenidos al inicio de la página RIAB');
