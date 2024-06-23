@@ -7,8 +7,8 @@ const resController = require('../controladores/personasControlador')
 
 router.get('/', resController.obtenerTodo);
 router.post('/', resController.crear);
-router.post('/:dni', resController.obtenerconId);
-router.post('/:dni', resController.actualizar);
-router.post('/:dni', resController.borrar);
+router.get('/:dni', resController.obtenerconId);
+router.put('/:dni', resController.actualizar);
+router.delete('/:dni', resController.borrar);
 
 module.exports = router
