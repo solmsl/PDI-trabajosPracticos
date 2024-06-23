@@ -16,7 +16,7 @@ const Rescatista = sequelize.define('Rescatista', {
         allowNull: false,
     },
     telefono: {
-        type: Sequelize.INTEGER.length(8)
+        type: Sequelize.INTEGER
     },
     email: {
         type: Sequelize.STRING,

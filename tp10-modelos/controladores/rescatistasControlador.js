@@ -59,16 +59,18 @@ const crear = async (req, res) => {
 
 const actualizar = async (req, res) => {
   try {
-    const {dni, nombre, apellido, telefono, email, direccion, genero} = req.body
-    const pasarDni = req.params.id;
+    const pasarDni = req.params.dni;
+    const {dni, nombre, apellido, telefono, email, direccion, genero } = req.body;
 
-    if(dni !== pasarDni){
+    const buscarResc = await Rescatista.findOne({ where: { dni: pasarDni } });
+
+    if(!buscarResc){
       return res.status(400).json({
-        message: "El dni no coincide con el registro"
+        message: "Rescatista no encontrado."
       });
     }
-    
-    const actResc = await Rescatista.update({dni, nombre, apellido, telefono, email, direccion, genero})
+
+    const actResc = await buscarResc.update({nombre, apellido, telefono, email, direccion, genero});
     
     return res.status(200).json({
       message: "Rescatista actualizado!",
@@ -81,8 +83,14 @@ const actualizar = async (req, res) => {
 
 const borrar = async (req, res) => {
   try {
-    const { dni } = req.params
-    const borrarResc = await Rescatista.findOneAndDelete({dni});
+    const dni= req.params.dni
+    const buscarResc = await Rescatista.findOne({where: {dni}});
+
+    if(!buscarResc){
+      return res.status(404).json({ message: "Rescatista no encontrado."});
+    }
+
+    const borrarResc = await buscarResc.destroy();
     return res.status(200).json({
       message: "Rescatista Borrado con exito!",
       data: borrarResc
