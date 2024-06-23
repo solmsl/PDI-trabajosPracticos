@@ -52,6 +52,18 @@ db.getConnection((err, connection) => {
       PRIMARY KEY (id)
     )`
   )
+
+  connection.query(
+    `CREATE TABLE IF NOT EXISTS mascotas (
+      id INT NOT NULL AUTO_INCREMENT,
+      nombre_apodo VARCHAR(100) NOT NULL,
+      raza VARCHAR(100) NOT NULL,
+      color VARCHAR(100) NOT NULL,
+      estado_salud VARCHAR(100) NOT NULL,
+      anio_nacimiento int(100) NOT NULL,
+      PRIMARY KEY (id)
+    )`
+  )
 })
 
 module.exports = promiseQuery

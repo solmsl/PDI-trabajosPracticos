@@ -1,4 +1,4 @@
-const promiseQuery = require('../config/bd')
+const promiseQuery = require('../config/db')
 
 // Controlador de productos
 
