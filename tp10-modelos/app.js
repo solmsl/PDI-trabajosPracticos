@@ -16,6 +16,7 @@ app.use('/mascotas', require('./rutas/mascotas'));
 app.use('/personas', require('./rutas/personas'));
 //Ruta HISTORIAL MEDICO (Cande :D)
 app.use('/historial', require('./rutas/historial'));
+
 //Ruta INICIO de RIAB
 app.get('/', (req, res) => {
   res.send('Bienvenidos al inicio de la página RIAB');

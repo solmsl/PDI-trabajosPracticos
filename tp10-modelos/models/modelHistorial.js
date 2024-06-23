@@ -70,6 +70,6 @@ const Historial = sequelize.define('Historial', {
 })
 
 Historial.sync();
-// Producto.sync({alter: true}) | Producto.sync({force: true})
+// Historial.sync({alter: true}) | Historial.sync({force: true})
 
 module.exports = Historial;

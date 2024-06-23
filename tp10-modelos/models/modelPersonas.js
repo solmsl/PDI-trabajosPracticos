@@ -1,21 +1,19 @@
 const { Sequelize } = require('sequelize');
 const sequelize = require('../config/db_sequelize');
 
-// Definir la estructura de la tabla rescatistas
-const Rescatista = sequelize.define('Rescatista', {
+// Definir la estructura de la tabla personas
+const Persona = sequelize.define('Persona', {
     dni: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         unique: true,
         validate: {
-          isInt: true,
-          notNull: { msg: 'No puede estar vacío.'},
-          validarDni(value) {
-            if (!value || value.length < 8) {
-              throw new Error('DNI inválido!');
+            validarDni(value) {
+              if (!value || value.length < 8) {
+                throw new Error('DNI inválido');
+              }
             }
           }
-        }
     },
     nombre: {
         type: Sequelize.STRING,
@@ -57,14 +55,11 @@ const Rescatista = sequelize.define('Rescatista', {
     genero: {
         type: Sequelize.STRING,
         allowNull: false,
-        validate: {
-          isInt: false
-        }
     },
 }, {
   timestamps: false
 })
 
-Rescatista.sync();
+Persona.sync();
 
-module.exports = Rescatista;
+module.exports = Persona;

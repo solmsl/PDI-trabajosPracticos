@@ -66,7 +66,7 @@ const mascotas = sequelize.define('mascotas', {
 
 {timestamps: false });
 
-// Sincronización del modelo con la base de datos ???? que es lo de .then?
+// Sincronización del modelo con la base de datos
 mascotas.sync({ force: false })
   .then(() => {
     console.log('Modelo de mascotas sincronizado correctamente');

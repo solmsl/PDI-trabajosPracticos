@@ -1,6 +1,5 @@
 const express = require('express');
-const router = express.Router()
-const promiseQuery = require('../config/db')
+const router = express.Router();
 
 //importamos el controlador
 const resController = require('../controladores/rescatistasControlador')
