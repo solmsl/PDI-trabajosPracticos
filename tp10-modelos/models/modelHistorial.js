@@ -18,7 +18,7 @@ const Historial = sequelize.define('Historial', {
         notEmpty: {
           msg: 'Este campo no puede estar vacío'
         }
-      }
+    }
   },
   operado: {
     type: Sequelize.STRING,

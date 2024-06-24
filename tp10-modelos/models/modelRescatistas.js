@@ -9,7 +9,8 @@ const Rescatista = sequelize.define('Rescatista', {
         unique: true,
         validate: {
           isInt: true,
-          notNull: { msg: 'No puede estar vacío.'},
+          isNull: false,
+          notEmpty: { msg: 'No puede estar vacio' },
           validarDni(value) {
             if (!value || value.length < 8) {
               throw new Error('DNI inválido!');
@@ -40,7 +41,9 @@ const Rescatista = sequelize.define('Rescatista', {
     },
     telefono: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        validate: {
+          isInt: true
+        }
     }, 
     email: {
         type: Sequelize.STRING,
@@ -53,6 +56,11 @@ const Rescatista = sequelize.define('Rescatista', {
     direccion: {
         type: Sequelize.STRING,
         allowNull: false,
+        validate: {
+          notEmpty: {
+            msg: 'Este campo no puede estar vacío'
+          }
+        }
     },
     genero: {
         type: Sequelize.STRING,

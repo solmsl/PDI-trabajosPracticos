@@ -15,7 +15,7 @@ app.use('/mascotas', require('./rutas/mascotas'));
 //Ruta PERSONAS (Sol :D)
 app.use('/personas', require('./rutas/personas'));
 //Ruta HISTORIAL MEDICO (Cande :D)
-app.use('/historial', require('./rutas/historial'));
+//app.use('/historial', require('./rutas/historial'));
 
 //Ruta INICIO de RIAB
 app.get('/', (req, res) => {

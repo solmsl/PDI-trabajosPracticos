@@ -39,7 +39,7 @@ const mascotas = sequelize.define('mascotas', {
   color: {
     type: Sequelize.STRING,
     allowNull: false,
-    defaultValue: 'Agregale el color de pelaje de tu mascota'
+    defaultValue: 'color no definido'
   },
 
   estado_salud: {
@@ -48,7 +48,7 @@ const mascotas = sequelize.define('mascotas', {
     validate: {
       isString: function(valorMascotaSalud) {
         if (typeof valorMascotaSalud !== 'string') {
-          throw new Error('El informe de salud debe ser un string, puedes incluir numeros');
+          throw new Error('Error, el dato ingresado no es de tipo string');
         }
       }
     }

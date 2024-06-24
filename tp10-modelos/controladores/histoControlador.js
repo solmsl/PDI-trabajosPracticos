@@ -1,11 +1,11 @@
 // Importamos modelo de Rescatistas
-const Rescatista = require('../models/modelRescatistas');
+const Historial = require('../models/modelHistorial');
 
 const obtenerTodos = async (req, res) => {
   // Obtiene todos los usuarios de la base de datos
   try {
-    const Resc = await Rescatista.findAll()
-    return res.json(Resc)
+    const Histo = await Historial.findAll()
+    return res.json(Histo)
   } catch (error) {
     return res.json({err: error})
   }
@@ -13,10 +13,10 @@ const obtenerTodos = async (req, res) => {
 
 const obtener = async (req, res) => {
   try {
-    const { dni } = req.params
-    const resc = await Rescatista.findByPk(dni)
+    const { id } = req.params
+    const histo = await Historial.findByPk(id)
   
-    return res.status(200).json(resc) 
+    return res.status(200).json(histo) 
   } catch (error) {
     return res.status(500).json({error: "Internal Server Error"})
   }
@@ -24,30 +24,39 @@ const obtener = async (req, res) => {
 
 const crear = async (req, res) => {
   try {
-    const {dni, nombre, apellido, telefono, email, direccion, genero } = req.body
+    const {id, castrado, operado, discapacidad, rabia, enfermedades, desparasitados } = req.body
 
-    // Validaciones - tengo que modifarlo para que esté en models
-    if (!dni || dni.length < 8) { 
-      return res.status(401).json({error: "DNI inválido"})
+    // Validaciones
+    if (!id || id.length < id) { 
+      return res.status(401).json({error: "ID inválido"})
     }
-    if (!nombre || nombre.length < 3) {
-      return res.status(401).json({error: "Nombre inválido"})
+    if (!castrado || castrado.length < 1) {
+      return res.status(401).json({error: "Campo inválido"})
     }
-    if (!apellido || apellido.length < 3) {
-      return res.status(401).json({error: "Apellido inválido"})
+    if (!operado || operado.length < 1) {
+      return res.status(401).json({error: "Campo inválido"})
     }
-    if (isNaN(telefono)) {
-      return res.status(401).json({error: "Número de Telefono inválido"})
+    if (!discapacidad || discapacidad.length < 1) {
+      return res.status(401).json({error: "Campo inválido"})
+    }
+    if (!rabia || rabia.length < 1) {
+      return res.status(401).json({error: "Campo inválido"})
+    }
+    if (!enfermedades || enfermedades.length < 1) {
+      return res.status(401).json({error: "Campo inválido"})
+    }
+    if (!desparasitados || desparasitados.length < 1) {
+      return res.status(401).json({error: "Campo inválido"})
     }
 
-    const rescaNuevo = await Rescatista.create({ 
-      dni, nombre, apellido, telefono, email, direccion, genero
+    const histoNuevo = await Historial.create({ 
+        id, castrado, operado, discapacidad, rabia, enfermedades, desparasitados
     });
-    rescaNuevo.save();
+    histoNuevo.save();
 
     return res.status(200).json({
-      message: "Rescatista creado!",
-      data: rescaNuevo
+      message: "Historial creado!",
+      data: histoNuevo
     })
 
   } catch (error) {
@@ -57,22 +66,22 @@ const crear = async (req, res) => {
 
 const actualizar = async (req, res) => {
   try {
-    const pasarDni = req.params.dni;
-    const {dni, nombre, apellido, telefono, email, direccion, genero } = req.body;
+    const pasarId = req.params.id;
+    const {id, castrado, operado, discapacidad, rabia, enfermedades, desparasitados} = req.body;
 
-    const buscarResc = await Rescatista.findOne({ where: { dni: pasarDni } });
+    const buscarHisto = await Historial.findOne({ where: { id: pasarId } });
 
-    if(!buscarResc){
+    if(!buscarHisto){
       return res.status(400).json({
-        message: "Rescatista no encontrado."
+        message: "Historial no encontrado."
       });
     }
 
-    const actResc = await buscarResc.update({nombre, apellido, telefono, email, direccion, genero});
+    const actHisto = await buscarHisto.update({id, castrado, operado, discapacidad, rabia, enfermedades, desparasitados});
     
     return res.status(200).json({
-      message: "Rescatista actualizado!",
-      data: actResc
+      message: "Historial actualizado!",
+      data: actHisto
     })
   } catch (error) {
     return res.status(500).json({error: "Internal Server Error"})
@@ -81,16 +90,16 @@ const actualizar = async (req, res) => {
 
 const borrar = async (req, res) => {
   try {
-    const dni= req.params.dni
-    const buscarResc = await Rescatista.findOne({where: {dni}});
+    const id= req.params.id
+    const buscarHisto = await Historial.findOne({where: {id}});
 
-    if(!buscarResc){
-      return res.status(404).json({ message: "Rescatista no encontrado."});
+    if(!buscarHisto){
+      return res.status(404).json({ message: "Historial no encontrado."});
     }
 
-    const borrarResc = await buscarResc.destroy();
+    const borrarHisto = await buscarHisto.destroy();
     return res.status(200).json({
-      message: "Rescatista Borrado con exito!",
+      message: "Historial Borrado con exito!",
       data: borrarResc
     })
   } catch (error) {
