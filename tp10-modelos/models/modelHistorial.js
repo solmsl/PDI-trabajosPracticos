@@ -69,7 +69,12 @@ const Historial = sequelize.define('Historial', {
   timestamps: false
 })
 
-Historial.sync();
-// Historial.sync({alter: true}) | Historial.sync({force: true})
+Historial.sync({ force: false })
+  .then(() => {
+    console.log('Modelo del Historial Medico sincronizado correctamente');
+  })
+  .catch(err => {
+    console.error('Error al sincronizar el Modelo del Historial Medico:', err);
+  });
 
 module.exports = Historial;

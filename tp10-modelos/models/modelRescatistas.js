@@ -6,14 +6,16 @@ const Rescatista = sequelize.define('Rescatista', {
     dni: {
         type: Sequelize.INTEGER,
         primaryKey: true,
+        allowNull: false,
         unique: true,
         validate: {
-          isInt: true,
-          isNull: false,
-          notEmpty: { msg: 'No puede estar vacio' },
+          isInt: {
+            msg: 'El DNI debe ser un número entero'
+          },
+          notEmpty: { msg: 'Este campo No puede estar vacio' },
           validarDni(value) {
             if (!value || value.length < 8) {
-              throw new Error('DNI inválido!');
+              throw new Error('DNI inválido! Debe tener al menos 8 digitos');
             }
           }
         }
@@ -25,7 +27,8 @@ const Rescatista = sequelize.define('Rescatista', {
             len: {
               args: [3, 50],
               msg: 'Nombre inválido: debe tener entre 3 y 50 caracteres'
-            }
+            },
+            notEmpty: true
         }
     },
     apellido: {
@@ -35,21 +38,32 @@ const Rescatista = sequelize.define('Rescatista', {
             len: {
               args: [3, 50],
               msg: 'Apellido inválido: debe tener entre 3 y 50 caracteres'
-            }
+            },
+            notEmpty: true
         }
       
     },
     telefono: {
         type: Sequelize.INTEGER,
+        allowNull: false,
         validate: {
-          isInt: true
+          isNumeric: {
+            msg: 'El teléfono debe contener solo números'
+          },
+          len: {
+            args: [7, 15],
+            msg: 'Número de Teléfono inválido: debe tener entre 7 y 15 caracteres'
+          },
+          notEmpty: true
         }
     }, 
     email: {
         type: Sequelize.STRING,
         allowNull: false,
         validate: {
-            isEmail: true,
+            isEmail: {
+              msg: "Formato de email inválido."
+            },
             notEmpty: true
         }
     },
@@ -59,20 +73,35 @@ const Rescatista = sequelize.define('Rescatista', {
         validate: {
           notEmpty: {
             msg: 'Este campo no puede estar vacío'
+          },
+          len: {
+            args: [0, 255],
+            msg: 'Dirección inválida: máximo 255 caracteres'
           }
         }
     },
     genero: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
         validate: {
-          isInt: false
+          isInt: false,
+          isIn: {
+            args: [['M', 'F', 'Otro']],
+            msg: 'Género inválido: debe ser Masculino, Femenino u Otro'
+          }
         }
     },
 }, {
   timestamps: false
 })
 
-Rescatista.sync();
+Rescatista.sync({ force: false })
+  .then(() => {
+    console.log('Modelo de Rescatista sincronizado correctamente');
+  })
+  .catch(err => {
+    console.error('Error al sincronizar el Modelo de Rescatista:', err);
+  }
+);
 
 module.exports = Rescatista;

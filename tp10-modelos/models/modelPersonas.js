@@ -60,6 +60,13 @@ const Persona = sequelize.define('Persona', {
   timestamps: false
 })
 
-Persona.sync();
+Persona.sync({ force: false })
+  .then(() => {
+    console.log('Modelo de Persona sincronizado correctamente');
+  })
+  .catch(err => {
+    console.error('Error al sincronizar el Modelo de Persona:', err);
+  }
+);
 
 module.exports = Persona;
