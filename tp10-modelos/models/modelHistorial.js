@@ -8,12 +8,11 @@ const Historial = sequelize.define('Historial', {
     primaryKey: true,
     validate: {  
         isInt: true, //tiene que ser entero
-        notNull: { msg: 'El ID no puede estar vacio'}
+        allowNull: false,
       }
   },
   castrado: {
     type: Sequelize.STRING,
-    primaryKey: true,
     validate: {
         notEmpty: {
           msg: 'Este campo no puede estar vacío'
@@ -22,7 +21,6 @@ const Historial = sequelize.define('Historial', {
   },
   operado: {
     type: Sequelize.STRING,
-    primaryKey: true,
     validate: {  
         notEmpty: {
             msg: 'Ingrese algo, el campo no puede estar vacio'
@@ -31,7 +29,6 @@ const Historial = sequelize.define('Historial', {
   },
   discapacidad: {
     type: Sequelize.STRING,
-    primaryKey: true,
     validate: {
         notEmpty: {
           msg: 'Ingrese algo, el campo no puede estar vacio'
@@ -40,7 +37,6 @@ const Historial = sequelize.define('Historial', {
   },
   rabia: {
     type: Sequelize.STRING,
-    primaryKey: true,
     validate: {
         notEmpty: {
           msg: 'Ingrese algo, el campo no puede estar vacio'
@@ -49,7 +45,6 @@ const Historial = sequelize.define('Historial', {
   },
   enfermedades: {
     type: Sequelize.STRING,
-    primaryKey: true,
     validate: {
         notEmpty: {
           msg: 'Ingrese algo, el campo no puede estar vacio'
@@ -58,7 +53,6 @@ const Historial = sequelize.define('Historial', {
   },
   desparasitados: {
     type: Sequelize.STRING,
-    primaryKey: true,
     validate: {
         notEmpty: {
           msg: 'Ingrese algo, el campo no puede estar vacio'
